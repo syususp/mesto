@@ -4,6 +4,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    padding-bottom: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -12,5 +13,11 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #000000;
+    color: #000;
+}
+
+@media screen and (max-width: 670px) {
+    .popup__input {
+        height: 14px;
+    }
 }

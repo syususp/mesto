@@ -2,10 +2,19 @@
     max-width: 336px;
     display: flex;
     flex-flow: row wrap;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-content: center;
     row-gap: 16px;
     column-gap: 18px;
     margin-right: auto;
     padding-left: 52.5px;
+}
+
+@media screen and (max-width: 670px) {
+    .profile__info {
+        margin-left: auto;
+        margin-bottom: 36px;
+        padding-left: 0;
+        justify-content: center;
+    }
 }

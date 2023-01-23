@@ -11,3 +11,18 @@
     border-radius: 10px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
+
+@media screen and (max-width: 920px) {
+    .popup__container {
+        width: 387px;
+        height: 297px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .popup__container {
+        width: 282px;
+        height: 322px;
+        padding: 25px 22px;
+    }
+}
