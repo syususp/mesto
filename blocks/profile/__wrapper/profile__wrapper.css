@@ -1,0 +1,7 @@
+.profile__wrapper {
+    max-width: 336px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    column-gap: 18px;
+}
