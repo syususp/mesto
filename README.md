@@ -14,7 +14,7 @@
 
 **САЙТ ПРОЕКТА**
 Страница доступна на: 
-https://syususp.github.io/mesto/
+https://syususp.neocities.org/
 
 **Figma**
 
