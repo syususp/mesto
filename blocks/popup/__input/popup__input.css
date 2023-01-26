@@ -15,9 +15,3 @@
     line-height: 17px;
     color: #000;
 }
-
-@media screen and (max-width: 670px) {
-    .popup__input {
-        height: 14px;
-    }
-}
