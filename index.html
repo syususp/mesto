@@ -16,7 +16,11 @@
 <body class="body">
     <div class="page">
         <header class="header">
-            <img src="./images/logo.svg" alt="Логотип Место" class="header__logo">
+            <picture>
+                <source media="(min-width: 480px)" srcset="./images/logo.png">
+                <img src="./images/logo-mobile.png"  alt="Логотип Место" class="header__logo">
+            </picture>            
+            <!-- <img src="./images/logo.svg" alt="Логотип Место" class="header__logo"> -->
         </header>
         <main class="main">
             <section class="profile">

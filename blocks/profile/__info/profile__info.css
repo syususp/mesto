@@ -7,13 +7,12 @@
     row-gap: 9px;
     column-gap: 18px;
     margin-right: auto;
-    padding-left: 52.5px;
+    padding-left: 30px;
 }
 
 @media screen and (max-width: 670px) {
     .profile__info {
-        margin-left: auto;
-        margin-bottom: 36px;
+        margin: 0 auto 32px;
         padding-left: 0;
         justify-content: center;
     }
