@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 670px) {
     .profile__wrapper {
-        max-width: 218px;
+        min-width: 218px;
         margin-left: 28px;
         column-gap: 10px;
     }
