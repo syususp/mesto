@@ -90,6 +90,39 @@ function closePopupAddCard() {
     popupAddCard.classList.remove('popup_opened');
 }
 
+function recalculateLikeButtons() {
+    likeButtons = document.querySelectorAll('.element__like-button');
+}
+
+function recalculateElementImages() {
+    elementImages = elements.querySelectorAll('.element__image');
+}
+
+function recalculateTrashbuttons() {
+    trashButtons = elements.querySelectorAll('.element__trash-button');
+}
+
+function likeBtn() {
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            button.classList.toggle('element__like-button_type_active');
+        })
+    })
+}
+
+function openPopupImage() {
+    elementImages.forEach(image => {
+        image.addEventListener('click', function () {
+            popupExpandImage.classList.add('popup_opened');
+            closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
+            popupImage.src = image.src;
+            popupImage.alt = image.alt;
+            imageCaption.textContent = image.alt;
+            closePopupImage();
+        })
+    })
+}
+
 function handleFormAddCardSubmit(evt) {
     evt.preventDefault();
     linkInputValue = linkInput.value;
@@ -114,25 +147,10 @@ popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
 
 let likeButtons = document.querySelectorAll('.element__like-button');
 
-function recalculateLikeButtons() {
-    likeButtons = document.querySelectorAll('.element__like-button');
-}
-function likeBtn() {
-    likeButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            button.classList.toggle('element__like-button_type_active');
-        })
-    })
-}
-
-// // вызов для уже добавленных кнопок
+// вызов для уже добавленных кнопок
 likeBtn();
 
 let trashButtons = elements.querySelectorAll('.element__trash-button');
-
-function recalculateTrashbuttons() {
-    trashButtons = elements.querySelectorAll('.element__trash-button');
-}
 
 function removeElement() {
     trashButtons.forEach(button => {
@@ -154,25 +172,8 @@ const popupImage = popupExpandImage.querySelector('.popup__image');
 const imageCaption = popupExpandImage.querySelector('.popup__image-title');
 let closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
 
-function openPopupImage() {
-    elementImages.forEach(image => {
-        image.addEventListener('click', function () {
-            popupExpandImage.classList.add('popup_opened');
-            closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
-            popupImage.src = image.src;
-            popupImage.alt = image.alt;
-            imageCaption.textContent = image.alt;
-            closePopupImage();
-        })
-    })
-}
-
 // вызов для уже добавленных фото
 openPopupImage();
-
-function recalculateElementImages() {
-    elementImages = elements.querySelectorAll('.element__image');
-}
 
 function closePopupImage() {
     closePopupImageButton.addEventListener('click', function () {
