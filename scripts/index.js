@@ -65,8 +65,11 @@ const elementTemplate = document.querySelector('#element__template').content;
 const elements = document.querySelector('.elements');
 initialCards.forEach((item, index, arr) => {
     const element = elementTemplate.querySelector('.element').cloneNode(true);
-    element.querySelector('.element__image').src = arr[index].link;
-    element.querySelector('.element__title').textContent = arr[index].name;
+    const arrName = arr[index].name;
+    const elementImage = element.querySelector('.element__image');
+    elementImage.src = arr[index].link;
+    elementImage.alt = arrName;
+    element.querySelector('.element__title').textContent = arrName;
     elements.append(element);
 });
 
@@ -94,7 +97,14 @@ function handleFormAddCardSubmit(evt) {
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     element.querySelector('.element__image').src = linkInputValue;
     element.querySelector('.element__title').textContent = nameInputValue;
+    element.querySelector('.element__image').alt = nameInputValue;
     elements.prepend(element);
+    recalculateElementImages();
+    recalculateTrashbuttons();
+    recalculateLikeButtons();
+    openPopupImage();
+    likeBtn();
+    removeElement();
     closePopupAddCard();
 }
 
@@ -103,8 +113,69 @@ addButton.addEventListener('click', showPopupAddCard);
 popupAddCardCloseButton.addEventListener('click', closePopupAddCard);
 
 let likeButtons = document.querySelectorAll('.element__like-button');
-likeButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        button.classList.toggle('element__like-button_type_active');
+
+function recalculateLikeButtons() {
+    likeButtons = document.querySelectorAll('.element__like-button');
+}
+function likeBtn() {
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            button.classList.toggle('element__like-button_type_active');
+        })
     })
-})
+}
+
+// // вызов для уже добавленных кнопок
+likeBtn();
+
+let trashButtons = elements.querySelectorAll('.element__trash-button');
+
+function recalculateTrashbuttons() {
+    trashButtons = elements.querySelectorAll('.element__trash-button');
+}
+
+function removeElement() {
+    trashButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            button.parentElement.remove();
+            recalculateElementImages();
+            recalculateTrashbuttons();
+            recalculateLikeButtons();
+        })
+    })
+}
+
+// вызов для уже добавленных element'ов
+removeElement();
+
+let elementImages = elements.querySelectorAll('.element__image');
+let popupExpandImage = document.querySelector('.popup_type_expand-image');
+let popupImage = popupExpandImage.querySelector('.popup__image');
+let imageCaption = popupExpandImage.querySelector('.popup__image-title');
+let closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
+
+function openPopupImage() {
+    elementImages.forEach(image => {
+        image.addEventListener('click', function () {
+            popupExpandImage.classList.add('popup_opened');
+            let closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
+            popupImage.src = image.src;
+            popupImage.alt = image.alt;
+            imageCaption.textContent = image.alt;
+            closePopupImage();
+        })
+    })
+}
+
+// вызов для уже добавленных фото
+openPopupImage();
+
+function recalculateElementImages() {
+    elementImages = elements.querySelectorAll('.element__image');
+}
+
+function closePopupImage() {
+    closePopupImageButton.addEventListener('click', function () {
+        popupExpandImage.classList.remove('popup_opened');
+    });
+}
