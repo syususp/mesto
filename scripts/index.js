@@ -31,7 +31,7 @@ function showPopup(popupName) {
 
 function closePopups() {
     closeButtons.forEach(closeButton => {
-        closeButton.addEventListener('click', () => { 
+        closeButton.addEventListener('click', () => {
             popupProfile.classList.remove('popup_opened');
             popupAddCard.classList.remove('popup_opened');
             popupExpandImage.classList.remove('popup_opened')
@@ -59,12 +59,12 @@ function likeBtn() {
 
 function removeCard() {
     trashButtons.forEach((button, index) => {
-      button.addEventListener('click', () => {
-        button.closest('.element').remove();
-        likeButtons.splice(index, 1);
-        trashButtons.splice(index, 1);
-        elementImages.splice(index, 1);
-      });
+        button.addEventListener('click', () => {
+            button.closest('.element').remove();
+            likeButtons.splice(index, 1);
+            trashButtons.splice(index, 1);
+            elementImages.splice(index, 1);
+        });
     });
 }
 
@@ -107,12 +107,12 @@ function openPopupImage() {
 }
 
 editButton.addEventListener('click', () => { showPopup(popupProfile); insertValuesFromProfile() });
-closeButtons.forEach( () => { closePopups() });
-formProfile.addEventListener('submit', (evt) => { 
+closeButtons.forEach(() => { closePopups() });
+formProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     saveValuesFromInput();
     popupProfile.classList.remove('popup_opened');
-    });
+});
 
 const arr = [
     {
@@ -146,8 +146,8 @@ arr.forEach((item, index, arr) => {
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { showPopup(popupAddCard);  }); // clearInputs() не забыть вернуть
-formAddCard.addEventListener('submit', (evt) => { 
+addButton.addEventListener('click', () => { showPopup(popupAddCard); }); // clearInputs() не забыть вернуть
+formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const tempArr = [
         {
