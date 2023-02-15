@@ -80,7 +80,10 @@ function createCard(index, arr) {
     elementImage.src = arr[index].link;
     elementImage.alt = arr[index].name;
     elementTitle.textContent = arr[index].name;
-    likeBtn();
+    // likeBtn();
+    likeButton.addEventListener('click', function () {
+        likeButton.classList.toggle('element__like-button_type_active');
+    })
     removeCard();
     openPopupImage();
     return element;
