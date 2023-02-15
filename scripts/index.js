@@ -34,6 +34,7 @@ function closePopups() {
         closeButton.addEventListener('click', () => { 
             popupProfile.classList.remove('popup_opened');
             popupAddCard.classList.remove('popup_opened');
+            popupExpandImage.classList.remove('popup_opened')
         });
     });
 }
@@ -56,15 +57,15 @@ function likeBtn() {
     })
 }
 
-function removeElement() {
-    trashButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            button.closest.remove();
-            //recalculateElementImages();
-            //recalculateTrashbuttons();
-            //recalculateLikeButtons();
-        })
-    })
+function removeCard() {
+    trashButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        button.closest('.element').remove();
+        likeButtons.splice(index, 1);
+        trashButtons.splice(index, 1);
+        elementImages.splice(index, 1);
+      });
+    });
 }
 
 function createCard(index, arr) {
@@ -79,12 +80,27 @@ function createCard(index, arr) {
     elementImage.src = arr[index].link;
     elementImage.alt = arr[index].name;
     elementTitle.textContent = arr[index].name;
+    likeBtn();
+    removeCard();
+    openPopupImage();
     return element;
 }
 
 function clearInputs() {
     nameInput.value = '';
     linkInput.value = '';
+}
+
+function openPopupImage() {
+    elementImages.forEach(image => {
+        image.addEventListener('click', function () {
+            showPopup(popupExpandImage);
+            popupImage.src = image.src;
+            popupImage.alt = image.alt;
+            imageCaption.textContent = image.alt;
+            closePopups();
+        })
+    })
 }
 
 editButton.addEventListener('click', () => { showPopup(popupProfile); insertValuesFromProfile() });
@@ -95,9 +111,7 @@ formProfile.addEventListener('submit', (evt) => {
     popupProfile.classList.remove('popup_opened');
     });
 
-// /* 5 спринт */
-
-const initialCards = [
+const arr = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -124,64 +138,21 @@ const initialCards = [
     }
 ];
 
-initialCards.forEach((item, index, arr) => {
+arr.forEach((item, index, arr) => {
     const element = createCard(index, arr);
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { showPopup(popupAddCard);  }); // clearInputs()
+addButton.addEventListener('click', () => { showPopup(popupAddCard);  }); // clearInputs() не забыть вернуть
 formAddCard.addEventListener('submit', (evt) => { 
     evt.preventDefault();
-    const arr = [
+    const tempArr = [
         {
             name: nameInput.value,
             link: linkInput.value
         }
     ];
-    const element = createCard(0, arr);
+    const element = createCard(0, tempArr);
     elements.prepend(element);
     popupAddCard.classList.remove('popup_opened');
 });
-
-// function openPopupImage() {
-//     elementImages.forEach(image => {
-//         image.addEventListener('click', function () {
-//             popupExpandImage.classList.add('popup_opened');
-//             closePopupImageButton = document.querySelector('.popup__close_type_expand-image');
-//             popupImage.src = image.src;
-//             popupImage.alt = image.alt;
-//             imageCaption.textContent = image.alt;
-//             closePopupImage();
-//         })
-//     })
-// }
-
-// function handleFormAddCardSubmit(evt) {
-//     evt.preventDefault();
-//     linkInputValue = linkInput.value;
-//     nameInputValue = nameInput.value;
-//     const element = elementTemplate.querySelector('.element').cloneNode(true);
-//     element.querySelector('.element__image').src = linkInputValue;
-//     element.querySelector('.element__title').textContent = nameInputValue;
-//     element.querySelector('.element__image').alt = nameInputValue;
-//     elements.prepend(element);
-//     recalculateElementImages();
-//     recalculateTrashbuttons();
-//     recalculateLikeButtons();
-//     openPopupImage();
-//     likeBtn();
-//     removeElement();
-//     closePopupAddCard();
-// }
-
-// likeBtn();
-
-// removeElement();
-
-// openPopupImage();
-
-// function closePopupImage() {
-//     closePopupImageButton.addEventListener('click', function () {
-//         popupExpandImage.classList.remove('popup_opened');
-//     });
-// }
