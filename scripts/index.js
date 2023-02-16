@@ -25,18 +25,12 @@ const popupExpandImage = document.querySelector('.popup_type_expand-image');
 const popupImage = popupExpandImage.querySelector('.popup__image');
 const imageCaption = popupExpandImage.querySelector('.popup__image-title');
 
-function showPopup(popupName) {
+function openPopup(popupName) {
     popupName.classList.add('popup_opened');
 }
 
-function closePopups() {
-    closeButtons.forEach(closeButton => {
-        closeButton.addEventListener('click', () => {
-            popupProfile.classList.remove('popup_opened');
-            popupAddCard.classList.remove('popup_opened');
-            popupExpandImage.classList.remove('popup_opened')
-        });
-    });
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
 }
 
 function insertValuesFromProfile() {
@@ -49,43 +43,27 @@ function saveValuesFromInput() {
     profileSubtitle.textContent = jobInput.value;
 }
 
-function likeBtn() {
-    likeButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            button.classList.toggle('element__like-button_type_active');
-        })
-    })
-}
-
-function removeCard() {
-    trashButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            button.closest('.element').remove();
-            likeButtons.splice(index, 1);
-            trashButtons.splice(index, 1);
-            elementImages.splice(index, 1);
-        });
-    });
-}
-
 function createCard(index, arr) {
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     const elementTitle = element.querySelector('.element__title');
     const elementImage = element.querySelector('.element__image');
     const likeButton = element.querySelector('.element__like-button');
     const trashButton = element.querySelector('.element__trash-button');
-    likeButtons.push(likeButton);
-    trashButtons.push(trashButton);
-    elementImages.push(elementImage);
     elementImage.src = arr[index].link;
     elementImage.alt = arr[index].name;
     elementTitle.textContent = arr[index].name;
-    // likeBtn();
-    likeButton.addEventListener('click', function () {
+    likeButton.addEventListener('click', () => { 
         likeButton.classList.toggle('element__like-button_type_active');
     })
-    removeCard();
-    openPopupImage();
+    trashButton.addEventListener('click', () => { 
+        trashButton.closest('.element').remove();
+    })
+    elementImage.addEventListener('click', function () {
+            openPopup(popupExpandImage);
+            popupImage.src = arr[index].link;
+            popupImage.alt = arr[index].name;
+            imageCaption.textContent = arr[index].name;
+    })
     return element;
 }
 
@@ -94,24 +72,16 @@ function clearInputs() {
     linkInput.value = '';
 }
 
-function openPopupImage() {
-    elementImages.forEach(image => {
-        image.addEventListener('click', function () {
-            showPopup(popupExpandImage);
-            popupImage.src = image.src;
-            popupImage.alt = image.alt;
-            imageCaption.textContent = image.alt;
-            closePopups();
-        })
-    })
-}
+editButton.addEventListener('click', () => { openPopup(popupProfile); insertValuesFromProfile() });
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
+  });
 
-editButton.addEventListener('click', () => { showPopup(popupProfile); insertValuesFromProfile() });
-closeButtons.forEach(() => { closePopups() });
 formProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     saveValuesFromInput();
-    popupProfile.classList.remove('popup_opened');
+    closePopup(popupProfile);
 });
 
 const arr = [
@@ -146,7 +116,7 @@ arr.forEach((item, index, arr) => {
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { showPopup(popupAddCard); }); // clearInputs() не забыть вернуть
+addButton.addEventListener('click', () => { openPopup(popupAddCard); });
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const tempArr = [
@@ -157,5 +127,6 @@ formAddCard.addEventListener('submit', (evt) => {
     ];
     const element = createCard(0, tempArr);
     elements.prepend(element);
-    popupAddCard.classList.remove('popup_opened');
+    evt.target.reset();
+    closePopup(popupAddCard);
 });
