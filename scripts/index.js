@@ -24,6 +24,7 @@ const trashButtons = Array.from(elements.querySelectorAll('.element__trash-butto
 const popupExpandImage = document.querySelector('.popup_type_expand-image');
 const popupImage = popupExpandImage.querySelector('.popup__image');
 const imageCaption = popupExpandImage.querySelector('.popup__image-title');
+const popups = document.querySelectorAll('.popup');
 
 function openPopup(popupName) {
     popupName.classList.add('popup_opened');
@@ -52,17 +53,17 @@ function createCard(index, arr) {
     elementImage.src = arr[index].link;
     elementImage.alt = arr[index].name;
     elementTitle.textContent = arr[index].name;
-    likeButton.addEventListener('click', () => { 
+    likeButton.addEventListener('click', () => {
         likeButton.classList.toggle('element__like-button_type_active');
     })
-    trashButton.addEventListener('click', () => { 
+    trashButton.addEventListener('click', () => {
         trashButton.closest('.element').remove();
     })
     elementImage.addEventListener('click', function () {
-            openPopup(popupExpandImage);
-            popupImage.src = arr[index].link;
-            popupImage.alt = arr[index].name;
-            imageCaption.textContent = arr[index].name;
+        openPopup(popupExpandImage);
+        popupImage.src = arr[index].link;
+        popupImage.alt = arr[index].name;
+        imageCaption.textContent = arr[index].name;
     })
     return element;
 }
@@ -76,7 +77,7 @@ editButton.addEventListener('click', () => { openPopup(popupProfile); insertValu
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
-  });
+});
 
 formProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -129,4 +130,19 @@ formAddCard.addEventListener('submit', (evt) => {
     elements.prepend(element);
     evt.target.reset();
     closePopup(popupAddCard);
+});
+
+popups.forEach(popup => {
+    popup.addEventListener('click', function (evt) {
+        const popupChild = popup.querySelector('.popup__container, .popup__image-figure');
+        if (!popupChild.contains(evt.target)) {
+            closePopup(popup);
+        }
+    });
+
+    document.addEventListener('keydown', function (evt) {
+        if (evt.key === 'Escape') {
+            closePopup(popup);
+        }
+    });
 });
