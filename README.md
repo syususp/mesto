@@ -7,10 +7,21 @@
 * Карточки мест
 * Футер
 
+### Обзор
+В создании использованы знания, полученные на Яндекс.Практикуме.
+* Современная вёрстка,  Grid/Flexbox
+* Адаптивная вёрстка
+* Семантика, методология BEM
+* Javascript - базовые концепции
+* Обработка форм
+* Работа с DOM-деревом
+
 **Референс** 
 
 * Figma
 * Картинки
+* Брифы
+* Чеклисты
 
 **САЙТ ПРОЕКТА**
 Страница доступна на: 
@@ -18,10 +29,9 @@ https://syususp.neocities.org/
 
 **Figma**
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Ссылка на макет в Figma](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=1124%3A73&t=lLypobdh6dL2iK6M-0)
 
 **Картинки**
 
 Картинки экспортированы из Фигмы. 
-
 Оптимизированы с помощью https://tinypng.com/

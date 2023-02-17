@@ -1,8 +1,3 @@
-const labelMargins = {
-    popupInputTitle: '30px',
-    popupInputSubtitle: '45px'
-}
-
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add('popup__input_type_error');
@@ -42,11 +37,7 @@ const setEventListeners = (formElement) => {
 
 
 const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
-        formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
         setEventListeners(formElement);
     });
 };
@@ -56,13 +47,21 @@ const hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => !inputElement.validity.valid);
 };
 
+function disableButton(buttonElement) {
+    buttonElement.classList.add('popup__save_inactive');
+    buttonElement.disabled = true;
+}
+
+function enableButton(buttonElement) {
+    buttonElement.classList.remove('popup__save_inactive');
+    buttonElement.disabled = false;
+}
+
 const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add('popup__save_inactive');
-        buttonElement.disabled = true;
+        disableButton(buttonElement);
     } else {
-        buttonElement.classList.remove('popup__save_inactive');
-        buttonElement.disabled = false;
+        enableButton(buttonElement);
     }
 };
 
