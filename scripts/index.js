@@ -1,3 +1,6 @@
+// прошу не обращать внимания на предыдущий отправленный код,
+// не дождавшись ревью, отправляю новую версия кода с исправленными замечаниями
+
 function openPopup(popup) {
     document.addEventListener('keydown', closePopupOnEscape);
     popup.classList.add('popup_opened');
