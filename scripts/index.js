@@ -1,19 +1,9 @@
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    function closePopupOnEscape(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-        }
-    }
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    function closePopupOnEscape(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-        }
-    }
 }
 
 function insertValuesFromProfile() {
@@ -91,8 +81,8 @@ popups.forEach(popup => {
     function closePopupOnEscape(evt) {
         if (evt.key === 'Escape') {
             closePopup(popup);
-        }
+        }     
     }
-
+    
     document.addEventListener('keydown', closePopupOnEscape);
 });
