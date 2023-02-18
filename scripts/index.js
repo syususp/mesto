@@ -1,11 +1,11 @@
 function openPopup(popup) {
+    document.addEventListener('keydown', closePopupOnEscape);
     popup.classList.add('popup_opened');
-    saveButtons.forEach(disableButton);
 }
 
 function closePopup(popup) {
-    popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupOnEscape);
+    popup.classList.remove('popup_opened');
 }
 
 function insertValuesFromProfile() {
@@ -43,6 +43,15 @@ function createCard(obj) {
     return element;
 }
 
+function closePopupOnEscape(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        if (openedPopup) {
+            closePopup(openedPopup);
+        }
+    }
+}
+
 editButton.addEventListener('click', () => { openPopup(popupProfile); insertValuesFromProfile() });
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -60,7 +69,7 @@ initialArr.forEach((item) => {
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { openPopup(popupAddCard); });
+addButton.addEventListener('click', () => { openPopup(popupAddCard)});
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const tempArr = {
@@ -68,12 +77,10 @@ formAddCard.addEventListener('submit', (evt) => {
             link: linkInput.value
     };
     const element = createCard(tempArr);
+    const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
-    // никак не получается реализовать выключение кнопки при повторном открытии попапа после добавления карточки
-    // пробовал выключать в функции открытия/закрытия, в слушателе попапа, отдельно вызывать - не выходит
-    // прошу помощи
-    disableButton(button)
+    disableButton(submitButton);
     closePopup(popupAddCard);
 });
 
@@ -83,18 +90,4 @@ popups.forEach(popup => {
             closePopup(popup);
         }
     });
-
-    function closePopupOnEscape(evt) {
-        if (evt.key === 'Escape') {
-            const openedPopup = document.querySelector('.popup_opened');
-            if (openedPopup) {
-                closePopup(openedPopup);
-            }
-        }     
-    }
-    
-    document.addEventListener('keydown', closePopupOnEscape);
-    // также не получается реализовать удаление слушателя события 'keydown', как бы не изощрялся
-    // в Пачке кураторы оффлайн, не подсказывают, а времени мало
-    // прошу подсказать вас
 });
