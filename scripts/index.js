@@ -1,9 +1,11 @@
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    saveButtons.forEach(disableButton);
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 function insertValuesFromProfile() {
@@ -68,6 +70,10 @@ formAddCard.addEventListener('submit', (evt) => {
     const element = createCard(tempArr);
     elements.prepend(element);
     evt.target.reset();
+    // никак не получается реализовать выключение кнопки при повторном открытии попапа после добавления карточки
+    // пробовал выключать в функции открытия/закрытия, в слушателе попапа, отдельно вызывать - не выходит
+    // прошу помощи
+    disableButton(button)
     closePopup(popupAddCard);
 });
 
@@ -80,9 +86,15 @@ popups.forEach(popup => {
 
     function closePopupOnEscape(evt) {
         if (evt.key === 'Escape') {
-            closePopup(popup);
+            const openedPopup = document.querySelector('.popup_opened');
+            if (openedPopup) {
+                closePopup(openedPopup);
+            }
         }     
     }
     
     document.addEventListener('keydown', closePopupOnEscape);
+    // также не получается реализовать удаление слушателя события 'keydown', как бы не изощрялся
+    // в Пачке кураторы оффлайн, не подсказывают, а времени мало
+    // прошу подсказать вас
 });

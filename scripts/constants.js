@@ -50,3 +50,5 @@ const imageCaption = popupExpandImage.querySelector('.popup__image-title');
 const popups = document.querySelectorAll('.popup');
 
 const formList = Array.from(document.querySelectorAll('.popup__form'));
+
+const saveButtons = document.querySelectorAll('.popup__save');
