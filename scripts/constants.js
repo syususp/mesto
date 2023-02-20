@@ -25,6 +25,10 @@ const initialArr = [
     }
 ];
 
+const config = {
+    formSelector: document.querySelectorAll('.popup__form'),
+}
+
 const editButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_type_edit-profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
