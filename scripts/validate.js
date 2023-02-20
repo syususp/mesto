@@ -35,8 +35,8 @@ const setEventListeners = (formElement) => {
 };
 
 
-const enableValidation = () => {
-    formList.forEach((formElement) => {
+const enableValidation = (config) => {
+    config.formList.forEach((formElement) => {
         setEventListeners(formElement);
     });
 };
@@ -64,4 +64,4 @@ const toggleButtonState = (inputList, buttonElement) => {
     }
 };
 
-enableValidation();
+enableValidation(config);
