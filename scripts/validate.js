@@ -52,8 +52,8 @@ function disableButton(buttonElement, config) {
     buttonElement.disabled = true;
 }
 
-function enableButton(buttonElement) {
-    buttonElement.classList.remove('popup__save_inactive');
+function enableButton(buttonElement, config) {
+    buttonElement.classList.remove(config.inactiveButtonSelector);
     buttonElement.disabled = false;
 }
 
@@ -61,7 +61,7 @@ const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
         disableButton(buttonElement, config);
     } else {
-        enableButton(buttonElement);
+        enableButton(buttonElement, config);
     }
 };
 
