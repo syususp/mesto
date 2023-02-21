@@ -25,9 +25,10 @@ const initialArr = [
     }
 ];
 
-const config = {};
+const config = {
+    formSelector: '.popup__form',
+};
 
-config.formsSelector = document.querySelectorAll('.popup__form');
 config.popups = document.querySelectorAll('.popup');
 config.popupExpandImage = document.querySelector('.popup_type_expand-image');
 config.elementTemplate = document.querySelector('#element__template').content;
@@ -48,4 +49,3 @@ config.formAddCard = document.querySelector('.popup__form_type_add-card');
 config.nameInput = document.querySelector('.popup__input_type_name');
 config.linkInput = document.querySelector('.popup__input_type_link');
 config.saveButtons = document.querySelectorAll('.popup__save');
-config.formList = Array.from(config.formsSelector);
