@@ -27,6 +27,9 @@ const initialArr = [
 
 const config = {
     formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    buttonSelector: '.popup__save',
+    inactiveButtonSelector: 'popup__save_inactive',
 };
 
 config.popups = document.querySelectorAll('.popup');

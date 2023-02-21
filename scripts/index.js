@@ -78,7 +78,7 @@ config.formAddCard.addEventListener('submit', (evt) => {
     const submitButton = config.formAddCard.querySelector('.popup__save');
     config.elements.prepend(element);
     evt.target.reset();
-    disableButton(submitButton);
+    disableButton(submitButton, config);
     closePopup(config.popupAddCard);
 });
 
