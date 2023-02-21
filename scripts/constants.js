@@ -30,6 +30,9 @@ const config = {
     inputSelector: '.popup__input',
     buttonSelector: '.popup__save',
     inactiveButtonSelector: 'popup__save_inactive',
+    inputErrorSelector: 'popup__input_type_error',
+    errorActiveSelector: 'popup__input-error_active',
+    
 };
 
 config.popups = document.querySelectorAll('.popup');
