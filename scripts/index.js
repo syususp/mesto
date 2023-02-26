@@ -19,30 +19,6 @@ function saveValuesToProfile() {
     profileSubtitle.textContent = jobInput.value;
 }
 
-function createCard(obj) {
-    const element = elementTemplate.querySelector('.element').cloneNode(true);
-    const elementTitle = element.querySelector('.element__title');
-    const elementImage = element.querySelector('.element__image');
-    const likeButton = element.querySelector('.element__like-button');
-    const trashButton = element.querySelector('.element__trash-button');
-    elementImage.src = obj.link;
-    elementImage.alt = obj.name;
-    elementTitle.textContent = obj.name;
-    likeButton.addEventListener('click', () => {
-        likeButton.classList.toggle('element__like-button_type_active');
-    })
-    trashButton.addEventListener('click', () => {
-        trashButton.closest('.element').remove();
-    })
-    elementImage.addEventListener('click', function () {
-        openPopup(popupExpandImage);
-        popupImage.src = obj.link;
-        popupImage.alt = obj.name;
-        imageCaption.textContent = obj.name;
-    })
-    return element;
-}
-
 function closePopupOnEscape(evt) {
     if (evt.key === 'Escape') {
         const openedPopup = document.querySelector('.popup_opened');
@@ -50,7 +26,11 @@ function closePopupOnEscape(evt) {
     }
 }
 
-editButton.addEventListener('click', () => { openPopup(popupProfile); insertValuesFromProfile() });
+editButton.addEventListener('click', () => { 
+    openPopup(popupProfile); 
+    insertValuesFromProfile() 
+});
+
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
@@ -63,18 +43,19 @@ formProfile.addEventListener('submit', (evt) => {
 });
 
 initialArr.forEach((item) => {
-    const element = createCard(item);
+    const element = new Card(item).generateCard();
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { openPopup(popupAddCard)});
+addButton.addEventListener('click', () => { openPopup(popupAddCard) });
+
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const tempArr = {
             name: nameInput.value,
             link: linkInput.value
     };
-    const element = createCard(tempArr);
+    const element = new Card(tempArr).generateCard();
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
