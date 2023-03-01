@@ -83,7 +83,8 @@ formAddCard.addEventListener('submit', (evt) => {
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
-    //disableButton(submitButton, config);
+    const formValidator = new FormValidator(config, element);
+    formValidator.disableButton(submitButton, config);
     closePopup(popupAddCard);
 });
 
