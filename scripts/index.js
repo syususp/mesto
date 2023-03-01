@@ -1,4 +1,28 @@
-function openPopup(popup) {
+import {
+    initialArr,
+    config,
+    popups,
+    elements,
+    editButton,
+    popupProfile,
+    popupAddCard,
+    closeButtons,
+    formProfile,
+    titleInput,
+    jobInput,
+    profileTitle,
+    profileSubtitle,
+    addButton,
+    formAddCard,
+    nameInput,
+    linkInput,
+    formList
+    } from "./constants.js";
+
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
+export function openPopup(popup) {
     document.addEventListener('keydown', closePopupOnEscape);
     popup.classList.add('popup_opened');
 }
@@ -59,7 +83,7 @@ formAddCard.addEventListener('submit', (evt) => {
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
-    disableButton(submitButton, config);
+    //disableButton(submitButton, config);
     closePopup(popupAddCard);
 });
 
@@ -70,3 +94,8 @@ popups.forEach(popup => {
         }
     });
 });
+
+formList.forEach((formElement) => {
+    const formValidator = new FormValidator(config, formElement);
+    formValidator.enableValidation();
+})

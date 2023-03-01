@@ -53,4 +53,29 @@ const addButton = document.querySelector('.profile__add-button');
 const formAddCard = document.querySelector('.popup__form_type_add-card');
 const nameInput = document.querySelector('.popup__input_type_name');
 const linkInput = document.querySelector('.popup__input_type_link');
-const saveButtons = document.querySelectorAll('.popup__save');
+const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+export {
+    initialArr,
+    config,
+    popups,
+    popupExpandImage,
+    elementTemplate,
+    elements,
+    imageCaption,
+    popupImage,
+    editButton,
+    popupProfile,
+    popupAddCard,
+    closeButtons,
+    formProfile,
+    titleInput,
+    jobInput,
+    profileTitle,
+    profileSubtitle,
+    addButton,
+    formAddCard,
+    nameInput,
+    linkInput,
+    formList
+    };

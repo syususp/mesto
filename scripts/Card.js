@@ -1,30 +1,7 @@
-/*
-function createCard(obj) {
-    const element = elementTemplate.querySelector('.element').cloneNode(true);
-    const elementTitle = element.querySelector('.element__title');
-    const elementImage = element.querySelector('.element__image');
-    const likeButton = element.querySelector('.element__like-button');
-    const trashButton = element.querySelector('.element__trash-button');
-    elementImage.src = obj.link;
-    elementImage.alt = obj.name;
-    elementTitle.textContent = obj.name;
-    likeButton.addEventListener('click', () => {
-        likeButton.classList.toggle('element__like-button_type_active');
-    })
-    trashButton.addEventListener('click', () => {
-        trashButton.closest('.element').remove();
-    })
-    elementImage.addEventListener('click', function () {
-        openPopup(popupExpandImage);
-        popupImage.src = obj.link;
-        popupImage.alt = obj.name;
-        imageCaption.textContent = obj.name;
-    })
-    return element;
-}
-*/
+import { elementTemplate, popupExpandImage, popupImage, imageCaption } from "./constants.js";
+import { openPopup } from "./index.js";
 
-class Card {
+export default class Card {
     constructor(object) {
         this._object = object;
         this._element = elementTemplate.querySelector('.element').cloneNode(true);
@@ -51,9 +28,9 @@ class Card {
 
         this._elementImage.addEventListener('click', function () {
             openPopup(popupExpandImage);
-            popupImage.src = this._object.link;
-            popupImage.alt = this._object.name;
-            imageCaption.textContent = this._object.name;
+            popupImage.src = this.currentSrc;
+            popupImage.alt = this.alt;
+            imageCaption.textContent = this.alt;
         })
     }
 
