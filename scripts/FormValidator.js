@@ -20,7 +20,7 @@ export default class FormValidator {
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._config.errorActiveSelector);
     }
-    
+
     _hideInputError(inputElement) {
         const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._config.inputErrorSelector);
@@ -47,7 +47,7 @@ export default class FormValidator {
             this._enableButton(buttonElement);
         }
     }
-    
+
     _setEventListeners() {
         const inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
         const buttonElement = this._formElement.querySelector(this._config.buttonSelector);
@@ -58,11 +58,11 @@ export default class FormValidator {
                 this._toggleButtonState(inputList, buttonElement);
             })
         })
-    
+
         this._toggleButtonState(inputList, buttonElement);
     }
 
     enableValidation() {
-            this._setEventListeners();
+        this._setEventListeners();
     }
 }

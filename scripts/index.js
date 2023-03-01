@@ -17,7 +17,7 @@ import {
     nameInput,
     linkInput,
     formList
-    } from "./constants.js";
+} from "./constants.js";
 
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
@@ -50,9 +50,9 @@ function closePopupOnEscape(evt) {
     }
 }
 
-editButton.addEventListener('click', () => { 
-    openPopup(popupProfile); 
-    insertValuesFromProfile() 
+editButton.addEventListener('click', () => {
+    openPopup(popupProfile);
+    insertValuesFromProfile()
 });
 
 closeButtons.forEach((button) => {
@@ -76,8 +76,8 @@ addButton.addEventListener('click', () => { openPopup(popupAddCard) });
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const tempArr = {
-            name: nameInput.value,
-            link: linkInput.value
+        name: nameInput.value,
+        link: linkInput.value
     };
     const element = new Card(tempArr).generateCard();
     const submitButton = formAddCard.querySelector('.popup__save');

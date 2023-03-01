@@ -78,4 +78,4 @@ export {
     nameInput,
     linkInput,
     formList
-    };
+};
