@@ -16,9 +16,10 @@ import {
     formAddCard,
     nameInput,
     linkInput,
+    profileValidation,
+    newCardValidation,
 } from "./constants.js";
 
-import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
 export function openPopup(popup) {
@@ -82,8 +83,7 @@ formAddCard.addEventListener('submit', (evt) => {
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
-    const formValidator = new FormValidator(config, element);
-    formValidator.disableButton(submitButton, config);
+    newCardValidation.disableButton(submitButton, config);
     closePopup(popupAddCard);
 });
 
@@ -95,7 +95,5 @@ popups.forEach(popup => {
     });
 });
 
-const profileValidation = new FormValidator(config, formEditProfile);
-const newCardValidation = new FormValidator(config, formAddCard);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();

@@ -1,3 +1,5 @@
+import FormValidator from "./FormValidator.js";
+
 const initialArr = [
     {
         name: 'Архыз',
@@ -53,6 +55,8 @@ const addButton = document.querySelector('.profile__add-button');
 const formAddCard = document.querySelector('.popup__form_type_add-card');
 const nameInput = document.querySelector('.popup__input_type_name');
 const linkInput = document.querySelector('.popup__input_type_link');
+const profileValidation = new FormValidator(config, formEditProfile);
+const newCardValidation = new FormValidator(config, formAddCard);
 
 export {
     initialArr,
@@ -76,4 +80,6 @@ export {
     formAddCard,
     nameInput,
     linkInput,
+    profileValidation,
+    newCardValidation,
 };
