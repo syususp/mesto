@@ -7,7 +7,7 @@ import {
     popupProfile,
     popupAddCard,
     closeButtons,
-    formProfile,
+    formEditProfile,
     titleInput,
     jobInput,
     profileTitle,
@@ -16,7 +16,6 @@ import {
     formAddCard,
     nameInput,
     linkInput,
-    formList
 } from "./constants.js";
 
 import FormValidator from "./FormValidator.js";
@@ -60,7 +59,7 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
-formProfile.addEventListener('submit', (evt) => {
+formEditProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     saveValuesToProfile();
     closePopup(popupProfile);
@@ -96,7 +95,7 @@ popups.forEach(popup => {
     });
 });
 
-formList.forEach((formElement) => {
-    const formValidator = new FormValidator(config, formElement);
-    formValidator.enableValidation();
-})
+const profileValidation = new FormValidator(config, formEditProfile);
+const newCardValidation = new FormValidator(config, formAddCard);
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
