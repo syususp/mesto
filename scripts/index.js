@@ -50,6 +50,11 @@ function closePopupOnEscape(evt) {
     }
 }
 
+function createElement(obj) {
+    const element = new Card(obj).generateCard();
+    return element;
+}
+
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
     insertValuesFromProfile()
@@ -67,7 +72,7 @@ formEditProfile.addEventListener('submit', (evt) => {
 });
 
 initialArr.forEach((item) => {
-    const element = new Card(item).generateCard();
+    const element = createElement(item);
     elements.append(element);
 });
 
@@ -79,7 +84,7 @@ formAddCard.addEventListener('submit', (evt) => {
         name: nameInput.value,
         link: linkInput.value
     };
-    const element = new Card(tempArr).generateCard();
+    const element = createElement(tempArr);
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
