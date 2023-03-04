@@ -58,7 +58,7 @@ function createElement(obj, templateSelector) {
 
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
-    insertValuesFromProfile()
+    insertValuesFromProfile();
 });
 
 closeButtons.forEach((button) => {
@@ -77,7 +77,10 @@ initialArr.forEach((item) => {
     elements.append(element);
 });
 
-addButton.addEventListener('click', () => { openPopup(popupAddCard) });
+addButton.addEventListener('click', () => { 
+    openPopup(popupAddCard), 
+    newCardValidation.resetValidation() 
+});
 
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -89,7 +92,7 @@ formAddCard.addEventListener('submit', (evt) => {
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();
-    newCardValidation.disableButton(submitButton, config);
+    newCardValidation.disableButton();
     closePopup(popupAddCard);
 });
 
