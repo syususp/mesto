@@ -8,6 +8,7 @@
     max-width: 358px;
     margin: 0;
     padding: 0;
+    position: absolute;
 }
 
 @media screen and (max-width: 670px) {

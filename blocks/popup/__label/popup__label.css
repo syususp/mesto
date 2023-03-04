@@ -1,5 +1,6 @@
 .popup__label {
-    margin-bottom: 30px;
+    margin-bottom: 29.74px;
+    position: relative;
 }
 
 .popup__label:last-of-type {
