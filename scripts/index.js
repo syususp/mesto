@@ -18,6 +18,7 @@ import {
     linkInput,
     profileValidation,
     newCardValidation,
+    templateSelector,
 } from "./constants.js";
 
 import Card from "./Card.js";
@@ -50,8 +51,8 @@ function closePopupOnEscape(evt) {
     }
 }
 
-function createElement(obj) {
-    const element = new Card(obj).generateCard();
+function createElement(obj, templateSelector) {
+    const element = new Card(obj, templateSelector).generateCard();
     return element;
 }
 
@@ -72,7 +73,7 @@ formEditProfile.addEventListener('submit', (evt) => {
 });
 
 initialArr.forEach((item) => {
-    const element = createElement(item);
+    const element = createElement(item, templateSelector);
     elements.append(element);
 });
 
@@ -84,7 +85,7 @@ formAddCard.addEventListener('submit', (evt) => {
         name: nameInput.value,
         link: linkInput.value
     };
-    const element = createElement(tempArr);
+    const element = createElement(tempArr, templateSelector);
     const submitButton = formAddCard.querySelector('.popup__save');
     elements.prepend(element);
     evt.target.reset();

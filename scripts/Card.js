@@ -1,14 +1,10 @@
-import { elementTemplate, popupExpandImage, popupImage, imageCaption } from "./constants.js";
+import { templateSelector, popupExpandImage, popupImage, imageCaption } from "./constants.js";
 import { openPopup } from "./index.js";
 
 export default class Card {
-    constructor(object) {
+    constructor(object, templateSelector) {
         this._object = object;
-        this._element = elementTemplate.querySelector('.element').cloneNode(true);
-        this._elementTitle = this._element.querySelector('.element__title');
-        this._elementImage = this._element.querySelector('.element__image');
-        this._likeButton = this._element.querySelector('.element__like-button');
-        this._trashButton = this._element.querySelector('.element__trash-button');
+        this._templateSelector = templateSelector;
     }
 
     _setValues() {
@@ -35,8 +31,20 @@ export default class Card {
     }
 
     generateCard() {
-        this._setValues()
+        const element = document
+        .querySelector(this._templateSelector)
+        .content
+        .querySelector('.element')
+        .cloneNode(true);
+
+        this._elementTitle = element.querySelector('.element__title');
+        this._elementImage = element.querySelector('.element__image');
+        this._likeButton = element.querySelector('.element__like-button');
+        this._trashButton = element.querySelector('.element__trash-button');
+
+        this._setValues();
         this._handleEventListeners();
-        return this._element;
+
+        return element;
     }
 }

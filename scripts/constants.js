@@ -57,6 +57,7 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const linkInput = document.querySelector('.popup__input_type_link');
 const profileValidation = new FormValidator(config, formEditProfile);
 const newCardValidation = new FormValidator(config, formAddCard);
+const templateSelector = '#element__template';
 
 export {
     initialArr,
@@ -82,4 +83,5 @@ export {
     linkInput,
     profileValidation,
     newCardValidation,
+    templateSelector,
 };
