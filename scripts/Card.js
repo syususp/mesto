@@ -1,10 +1,26 @@
-import { templateSelector, popupExpandImage, popupImage, imageCaption } from "./constants.js";
+import { popupExpandImage, popupImage, imageCaption } from "./constants.js";
 import { openPopup } from "./index.js";
 
 export default class Card {
     constructor(object, templateSelector) {
         this._object = object;
         this._templateSelector = templateSelector;
+    }
+
+    _toggleLikeButton = () => {
+        this._likeButton.classList.toggle('element__like-button_type_active');
+    }
+
+    _removeElement = () => {
+        this.element.remove();
+        this.element = null;
+    }
+
+    _openImagePopup() {
+        openPopup(popupExpandImage);
+        popupImage.src = this.currentSrc;
+        popupImage.alt = this.alt;
+        imageCaption.textContent = this.alt;
     }
 
     _setValues() {
@@ -14,37 +30,28 @@ export default class Card {
     }
 
     _handleEventListeners() {
-        this._likeButton.addEventListener('click', () => {
-            this._likeButton.classList.toggle('element__like-button_type_active');
-        })
+        this._likeButton.addEventListener('click', this._toggleLikeButton)
 
-        this._trashButton.addEventListener('click', () => {
-            this._trashButton.closest('.element').remove();
-        })
+        this._trashButton.addEventListener('click', this._removeElement)
 
-        this._elementImage.addEventListener('click', function () {
-            openPopup(popupExpandImage);
-            popupImage.src = this.currentSrc;
-            popupImage.alt = this.alt;
-            imageCaption.textContent = this.alt;
-        })
+        this._elementImage.addEventListener('click', this._openImagePopup)
     }
 
     generateCard() {
-        const element = document
+        this.element = document
         .querySelector(this._templateSelector)
         .content
         .querySelector('.element')
         .cloneNode(true);
 
-        this._elementTitle = element.querySelector('.element__title');
-        this._elementImage = element.querySelector('.element__image');
-        this._likeButton = element.querySelector('.element__like-button');
-        this._trashButton = element.querySelector('.element__trash-button');
+        this._elementTitle = this.element.querySelector('.element__title');
+        this._elementImage = this.element.querySelector('.element__image');
+        this._likeButton = this.element.querySelector('.element__like-button');
+        this._trashButton = this.element.querySelector('.element__trash-button');
 
         this._setValues();
         this._handleEventListeners();
 
-        return element;
+        return this.element;
     }
 }
