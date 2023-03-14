@@ -22,6 +22,7 @@ import {
 } from "./constants.js";
 
 import Card from "./Card.js";
+import Section from "./Section.js";
 
 export function openPopup(popup) {
     document.addEventListener('keydown', closePopupOnEscape);
@@ -51,10 +52,11 @@ function closePopupOnEscape(evt) {
     }
 }
 
-function createElement(obj, templateSelector) {
-    const element = new Card(obj, templateSelector).generateCard();
-    return element;
-}
+// 8
+// function createElement(obj, templateSelector) {
+//     const element = new Card(obj, templateSelector).generateCard();
+//     return element;
+// }
 
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
@@ -72,10 +74,18 @@ formEditProfile.addEventListener('submit', (evt) => {
     closePopup(popupProfile);
 });
 
-initialArr.forEach((item) => {
-    const element = createElement(item, templateSelector);
-    elements.append(element);
-});
+// 8
+// initialArr.forEach((item) => {
+//     const element = createElement(item, templateSelector);
+//     elements.append(element);
+// });
+
+const initialElements = new Section({items: initialArr, renderer: (item) => {
+    const card = new Card(item, templateSelector);
+    const element = card.generateCard();
+    initialElements.addItem(element);
+}}, '.elements')
+initialElements.renderItems();
 
 addButton.addEventListener('click', () => { 
     openPopup(popupAddCard), 
