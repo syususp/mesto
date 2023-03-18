@@ -1,19 +1,12 @@
 import {
     initialArr,
-    config,
     popups,
-    elements,
     editButton,
-    popupProfile,
-    popupAddCard,
-    closeButtons,
-    formEditProfile,
     titleInput,
     jobInput,
     profileTitle,
     profileSubtitle,
     addButton,
-    formAddCard,
     nameInput,
     linkInput,
     profileValidation,
@@ -23,7 +16,6 @@ import {
 
 import Card from './Card.js';
 import Section from './Section.js';
-import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
@@ -43,14 +35,24 @@ const popupProfileForm = new PopupWithForm('.popup_type_edit-profile', (evt) => 
 );
 popupProfileForm.setEventListeners();
 
-const popupAddCardForm = new PopupWithForm('.popup_type_add-card', (item) => {
-    const card = new Card(item, templateSelector, () => {
-        popupWithImage.open(item);
-    });
-    const cardElement = card.generateCard();
-    cardsSection.addItem(cardElement);
-}
-);
+const popupAddCardForm = new PopupWithForm('.popup_type_add-card', (evt) => {
+    evt.preventDefault();
+    const tempArr = {
+        name: nameInput.value,
+        link: linkInput.value,
+    }
+
+    const newCard = new Section({
+        items: tempArr, renderer: (item) => {
+            const card = new Card(item, templateSelector, () => {
+                popupWithImage.open(item);
+            });
+            const element = card.generateCard();
+            newCard.addItem(element);
+        }
+    }, '.elements')
+    newCard.renderItems();
+});
 popupAddCardForm.setEventListeners();
 
 const initialElements = new Section({
@@ -74,20 +76,6 @@ editButton.addEventListener('click', () => {
     const valuesFromProfile = userInfo.getUserInfo();
     popupProfileForm.setInputValues(valuesFromProfile);
     newCardValidation.resetValidation()
-});
-
-formAddCard.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const tempArr = {
-        name: nameInput.value,
-        link: linkInput.value
-    };
-    const element = createElement(tempArr, templateSelector);
-    const submitButton = formAddCard.querySelector('.popup__save');
-    elements.prepend(element);
-    evt.target.reset();
-    newCardValidation.disableButton();
-    closePopup(popupAddCard);
 });
 
 popups.forEach(popup => {
