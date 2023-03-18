@@ -1,5 +1,5 @@
 import { popupExpandImage, popupImage, imageCaption } from "./constants.js";
-import { openPopup } from "./index.js";
+// import { openPopup } from "./index.js";
 
 export default class Card {
     constructor(object, templateSelector, handleCardClick) {

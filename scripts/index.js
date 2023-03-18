@@ -21,79 +21,56 @@ import {
     templateSelector,
 } from "./constants.js";
 
-import Card from './components/Card.js';
-import Section from './components/Section.js';
-import Popup from './components/Popup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+import Card from './Card.js';
+import Section from './Section.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
-export function openPopup(popup) {
-    document.addEventListener('keydown', closePopupOnEscape);
-    popup.classList.add('popup_opened');
-}
+const userInfo = new UserInfo({ profileTitle, profileSubtitle });
 
-function closePopup(popup) {
-    document.removeEventListener('keydown', closePopupOnEscape);
-    popup.classList.remove('popup_opened');
-}
+const popupWithImage = new PopupWithImage('.popup_type_expand-image');
+popupWithImage.setEventListeners();
 
-function insertValuesFromProfile() {
-    titleInput.value = profileTitle.textContent;
-    jobInput.value = profileSubtitle.textContent;
-}
+const popupProfileForm = new PopupWithForm('.popup_type_edit-profile', (evt) => {
+        evt.preventDefault();
 
-function saveValuesToProfile() {
-    // значения сохраняются из input'ов в профиль
-    profileTitle.textContent = titleInput.value;;
-    profileSubtitle.textContent = jobInput.value;
-}
-
-function closePopupOnEscape(evt) {
-    if (evt.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
+        popupProfileForm.close();
     }
-}
+);
+popupProfileForm.setEventListeners();
 
-// 8
-// function createElement(obj, templateSelector) {
-//     const element = new Card(obj, templateSelector).generateCard();
-//     return element;
-// }
+const popupAddCardForm = new PopupWithForm('.popup_type_add-card', (item) => {
+        const card = new Card(item, templateSelector, () => {
+            popupWithImage.open(item);
+        });
+        const cardElement = card.generateCard();
+        cardsSection.addItem(cardElement);
+    }
+);
+popupAddCardForm.setEventListeners();
 
-editButton.addEventListener('click', () => {
-    openPopup(popupProfile);
-    insertValuesFromProfile();
-});
-
-closeButtons.forEach((button) => {
-    const popup = button.closest('.popup');
-    button.addEventListener('click', () => closePopup(popup));
-});
-
-formEditProfile.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    saveValuesToProfile();
-    closePopup(popupProfile);
-});
-
-// 8
-// initialArr.forEach((item) => {
-//     const element = createElement(item, templateSelector);
-//     elements.append(element);
-// });
-
-const initialElements = new Section({items: initialArr, renderer: (item) => {
-    const card = new Card(item, templateSelector);
-    const element = card.generateCard();
-    initialElements.addItem(element);
-}}, '.elements')
+const initialElements = new Section({
+    items: initialArr, renderer: (item) => {
+        const card = new Card(item, templateSelector, () => {
+            popupWithImage.open(item);
+        });
+        const element = card.generateCard();
+        initialElements.addItem(element);
+    }
+}, '.elements')
 initialElements.renderItems();
 
-addButton.addEventListener('click', () => { 
-    openPopup(popupAddCard), 
-    newCardValidation.resetValidation() 
+addButton.addEventListener('click', () => {
+    popupAddCardForm.open();
+    newCardValidation.resetValidation()
+});
+
+editButton.addEventListener('click', () => {
+    popupProfileForm.open();
+    userInfo.
+    newCardValidation.resetValidation()
 });
 
 formAddCard.addEventListener('submit', (evt) => {
