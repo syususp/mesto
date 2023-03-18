@@ -2,9 +2,10 @@ import { popupExpandImage, popupImage, imageCaption } from "./constants.js";
 import { openPopup } from "./index.js";
 
 export default class Card {
-    constructor(object, templateSelector) {
+    constructor(object, templateSelector, handleCardClick) {
         this._object = object;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     _toggleLikeButton = () => {
@@ -34,7 +35,9 @@ export default class Card {
 
         this._trashButton.addEventListener('click', this._removeElement)
 
-        this._elementImage.addEventListener('click', this._openImagePopup)
+        this._elementImage.addEventListener('click', () => {
+            this._handleCardClick({ name: this._object.name, link: this._object.link })
+        })
     }
 
     generateCard() {

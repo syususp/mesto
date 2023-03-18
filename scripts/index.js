@@ -21,8 +21,12 @@ import {
     templateSelector,
 } from "./constants.js";
 
-import Card from "./Card.js";
-import Section from "./Section.js";
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import Popup from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 
 export function openPopup(popup) {
     document.addEventListener('keydown', closePopupOnEscape);
