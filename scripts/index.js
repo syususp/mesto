@@ -28,26 +28,28 @@ import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 
-const userInfo = new UserInfo({ profileTitle, profileSubtitle });
+const userInfo = new UserInfo({ nameSelector: profileTitle, infoSelector: profileSubtitle });
 
 const popupWithImage = new PopupWithImage('.popup_type_expand-image');
 popupWithImage.setEventListeners();
 
 const popupProfileForm = new PopupWithForm('.popup_type_edit-profile', (evt) => {
-        evt.preventDefault();
-
-        popupProfileForm.close();
-    }
+    evt.preventDefault();
+    const name = titleInput.value;
+    const info = jobInput.value;
+    userInfo.setUserInfo({ name, info });
+    popupProfileForm.close();
+}
 );
 popupProfileForm.setEventListeners();
 
 const popupAddCardForm = new PopupWithForm('.popup_type_add-card', (item) => {
-        const card = new Card(item, templateSelector, () => {
-            popupWithImage.open(item);
-        });
-        const cardElement = card.generateCard();
-        cardsSection.addItem(cardElement);
-    }
+    const card = new Card(item, templateSelector, () => {
+        popupWithImage.open(item);
+    });
+    const cardElement = card.generateCard();
+    cardsSection.addItem(cardElement);
+}
 );
 popupAddCardForm.setEventListeners();
 
@@ -69,7 +71,8 @@ addButton.addEventListener('click', () => {
 
 editButton.addEventListener('click', () => {
     popupProfileForm.open();
-    userInfo.
+    const valuesFromProfile = userInfo.getUserInfo();
+    popupProfileForm.setInputValues(valuesFromProfile);
     newCardValidation.resetValidation()
 });
 
