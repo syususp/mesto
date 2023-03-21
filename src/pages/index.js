@@ -40,30 +40,22 @@ const popupProfileForm = new PopupWithForm(
 );
 popupProfileForm.setEventListeners();
 
+const renderCard = (item) => {
+  const card = new Card(item, templateSelector, () => {
+    popupWithImage.open(item);
+  });
+  const element = card.generateCard();
+  cardsSection.addItem(element);
+}
+
 const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (evt) => {
   evt.preventDefault();
-  const cardData = [
-    {
-      name: nameInput.value,
-      link: linkInput.value,
-    },
-  ];
+  const cardData = {
+    name: nameInput.value,
+    link: linkInput.value,
+  };
 
-  const newCard = new Section(
-    {
-      items: cardData,
-      renderer: (item) => {
-        const card = new Card(item, templateSelector, () => {
-          popupWithImage.open(item);
-        });
-        const element = card.generateCard();
-        newCard.addItem(element);
-      },
-    },
-    ".elements"
-  );
-  newCard.renderItems();
-
+  renderCard(cardData),
   popupAddCardForm.close();
 });
 popupAddCardForm.setEventListeners();
@@ -71,13 +63,7 @@ popupAddCardForm.setEventListeners();
 const cardsSection = new Section(
   {
     items: initialArr,
-    renderer: (item) => {
-      const card = new Card(item, templateSelector, () => {
-        popupWithImage.open(item);
-      });
-      const element = card.generateCard();
-      cardsSection.addItem(element);
-    },
+    renderer: renderCard,
   },
   ".elements"
 );
