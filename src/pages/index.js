@@ -46,7 +46,7 @@ const renderCard = (item) => {
   });
   const element = card.generateCard();
   cardsSection.addItem(element);
-}
+};
 
 const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (evt) => {
   evt.preventDefault();
@@ -55,8 +55,7 @@ const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (evt) => {
     link: linkInput.value,
   };
 
-  renderCard(cardData),
-  popupAddCardForm.close();
+  renderCard(cardData), popupAddCardForm.close();
 });
 popupAddCardForm.setEventListeners();
 

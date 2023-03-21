@@ -11,12 +11,16 @@ export default class FormValidator {
   }
 
   disableButton() {
-    this._buttonElement.classList.add(this._validationConfig.inactiveButtonSelector);
+    this._buttonElement.classList.add(
+      this._validationConfig.inactiveButtonSelector
+    );
     this._buttonElement.disabled = true;
   }
 
   _enableButton() {
-    this._buttonElement.classList.remove(this._validationConfig.inactiveButtonSelector);
+    this._buttonElement.classList.remove(
+      this._validationConfig.inactiveButtonSelector
+    );
     this._buttonElement.disabled = false;
   }
 
