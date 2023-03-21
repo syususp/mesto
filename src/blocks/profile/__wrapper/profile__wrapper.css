@@ -4,7 +4,8 @@
     flex-wrap: nowrap;
     flex-direction: row;
     column-gap: 18px;
-    align-items: baseline; 
+    align-items: baseline;
+    justify-content: center;
 }
 
 @media screen and (max-width: 670px) {

@@ -1,7 +1,7 @@
 .profile__info {
     max-width: 336px;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: space-between;
     align-content: center;
     row-gap: 9px;
