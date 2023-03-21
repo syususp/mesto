@@ -43,10 +43,10 @@ popupProfileForm.setEventListeners();
 
 const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (evt) => {
   evt.preventDefault();
-  const cardData = {
+  const cardData = [{
     name: nameInput.value,
     link: linkInput.value,
-  };
+  }];
 
   const newCard = new Section(
     {
