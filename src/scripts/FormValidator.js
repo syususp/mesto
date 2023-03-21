@@ -59,7 +59,7 @@ export default class FormValidator {
   }
 
   _toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput()) {
       this.disableButton();
     } else {
       this._enableButton();
@@ -74,8 +74,6 @@ export default class FormValidator {
         this._toggleButtonState();
       });
     });
-
-    this._toggleButtonState();
   }
 
   enableValidation() {
