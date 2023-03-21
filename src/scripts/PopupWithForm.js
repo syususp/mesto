@@ -21,7 +21,7 @@ export default class PopupWithForm extends Popup {
     const inputValues = this._form.querySelectorAll(".popup__input");
     inputValues.forEach((inputValue) => {
       inputValue.value = valuesFromProfile[inputValue.name];
-    })
+    });
   }
 
   setEventListeners() {
