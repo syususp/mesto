@@ -5,7 +5,7 @@ import {
   buttonEdit,
   profileTitleSelector,
   profileSubtitleSelector,
-  addButton,
+  buttonAdd,
   templateSelector,
   validationConfig,
   formEditProfile,
@@ -44,11 +44,14 @@ const createCard = (cardData) => {
   return cardElement;
 };
 
-const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (formData) => {
-  const cardElement = createCard(formData);
-  cardsSection.addItem(cardElement);
-  popupAddCardForm.close();
-});
+const popupAddCardForm = new PopupWithForm(
+  ".popup_type_add-card",
+  (formData) => {
+    const cardElement = createCard(formData);
+    cardsSection.addItem(cardElement);
+    popupAddCardForm.close();
+  }
+);
 popupAddCardForm.setEventListeners();
 
 const cardsSection = new Section(
@@ -60,12 +63,11 @@ const cardsSection = new Section(
 );
 cardsSection.renderItems();
 
-
 const openAddCardPopup = () => {
   popupAddCardForm.open();
   newCardValidation.resetValidation();
 };
-addButton.addEventListener("click", openAddCardPopup);
+buttonAdd.addEventListener("click", openAddCardPopup);
 
 buttonEdit.addEventListener("click", () => {
   popupProfileForm.open();
