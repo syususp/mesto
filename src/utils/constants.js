@@ -48,8 +48,6 @@ const profileTitleSelector = ".profile__title";
 const profileSubtitleSelector = ".profile__subtitle";
 const addButton = document.querySelector(".profile__add-button");
 const formAddCard = document.querySelector(".popup__form_type_add-card");
-const nameInput = document.querySelector(".popup__input_type_name");
-const linkInput = document.querySelector(".popup__input_type_link");
 const templateSelector = "#element__template";
 
 export {
@@ -69,7 +67,5 @@ export {
   profileSubtitleSelector,
   addButton,
   formAddCard,
-  nameInput,
-  linkInput,
   templateSelector,
 };

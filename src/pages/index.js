@@ -6,8 +6,6 @@ import {
   profileTitleSelector,
   profileSubtitleSelector,
   addButton,
-  nameInput,
-  linkInput,
   templateSelector,
   validationConfig,
   formEditProfile,
@@ -31,48 +29,43 @@ popupWithImage.setEventListeners();
 
 const popupProfileForm = new PopupWithForm(
   ".popup_type_edit-profile",
-  (evt, formData) => {
-    evt.preventDefault();
-    const { name, info } = formData;
-    userInfo.setUserInfo({ name, info });
+  (formData) => {
+    userInfo.setUserInfo(formData);
     popupProfileForm.close();
   }
 );
 popupProfileForm.setEventListeners();
 
-const renderCard = (item) => {
-  const card = new Card(item, templateSelector, () => {
-    popupWithImage.open(item);
+const createCard = (cardData) => {
+  const card = new Card(cardData, templateSelector, () => {
+    popupWithImage.open(cardData);
   });
-  const element = card.generateCard();
-  cardsSection.addItem(element);
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
-const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (evt) => {
-  evt.preventDefault();
-  const cardData = {
-    name: nameInput.value,
-    link: linkInput.value,
-  };
-
-  renderCard(cardData), popupAddCardForm.close();
+const popupAddCardForm = new PopupWithForm(".popup_type_add-card", (formData) => {
+  const cardElement = createCard(formData);
+  cardsSection.addItem(cardElement);
+  popupAddCardForm.close();
 });
 popupAddCardForm.setEventListeners();
 
 const cardsSection = new Section(
   {
     items: initialArr,
-    renderer: renderCard,
+    renderer: createCard,
   },
   ".elements"
 );
 cardsSection.renderItems();
 
-const popupAddCard = () => {
+
+const openAddCardPopup = () => {
   popupAddCardForm.open();
   newCardValidation.resetValidation();
 };
-addButton.addEventListener("click", popupAddCard);
+addButton.addEventListener("click", openAddCardPopup);
 
 buttonEdit.addEventListener("click", () => {
   popupProfileForm.open();
