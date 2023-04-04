@@ -31,7 +31,7 @@
 
 **САЙТ ПРОЕКТА**
 Страница доступна на: 
-https://syususp.neocities.org/
+https://syususp.github.io/mesto/
 
 **Figma**
 
