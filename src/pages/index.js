@@ -1,7 +1,7 @@
 import "./index.css";
 
 import {
-  initialArr,
+  // initialArr,
   buttonEdit,
   profileTitleSelector,
   profileSubtitleSelector,
@@ -18,10 +18,12 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
+import { api } from "../components/Api.js";
 
 const userInfo = new UserInfo({
   nameSelector: profileTitleSelector,
   infoSelector: profileSubtitleSelector,
+  
 });
 
 const popupWithImage = new PopupWithImage(".popup_type_expand-image");
@@ -54,14 +56,20 @@ const popupAddCardForm = new PopupWithForm(
 );
 popupAddCardForm.setEventListeners();
 
-const cardsSection = new Section(
-  {
-    items: initialArr,
-    renderer: createCard,
-  },
-  ".elements"
-);
-cardsSection.renderItems();
+api.getInitialCards()
+  .then((initialArr) => {
+    const cardsSection = new Section(
+      {
+        items: initialArr,
+        renderer: createCard,
+      },
+      ".elements"
+    );
+    cardsSection.renderItems();
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const openAddCardPopup = () => {
   popupAddCardForm.open();
