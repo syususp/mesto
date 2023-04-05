@@ -10,6 +10,7 @@ import {
   validationConfig,
   formEditProfile,
   formAddCard,
+  formConfirmDelete,
   profileAvatarSelector,
 } from "../utils/constants.js";
 
@@ -20,6 +21,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import { api } from "../components/Api.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 
 const userInfo = new UserInfo({
   nameSelector: profileTitleSelector,
@@ -36,14 +38,28 @@ api
     console.log(error);
   });
 
+const popupConfirmation = new PopupConfirm(".popup_type_confirm", () => {
+  popupConfirmation.deleteCard();
+  popupConfirmation.close();
+})
+popupConfirmation.setEventListeners();
+
 const popupWithImage = new PopupWithImage(".popup_type_expand-image");
 popupWithImage.setEventListeners();
 
 const popupProfileForm = new PopupWithForm(
   ".popup_type_edit-profile",
   (formData) => {
-    userInfo.setUserInfo(formData);
-    popupProfileForm.close();
+    api
+      .setUserInfo(formData)
+      .then((formData) => {
+        userInfo.setUserInfo(formData);
+        popupProfileForm.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // popupProfileForm.close();
   }
 );
 popupProfileForm.setEventListeners();
@@ -56,20 +72,12 @@ const createCard = (cardData) => {
   return cardElement;
 };
 
-const popupAddCardForm = new PopupWithForm(
-  ".popup_type_add-card",
-  (formData) => {
-    const cardElement = createCard(formData);
-    cardsSection.addItem(cardElement);
-    popupAddCardForm.close();
-  }
-);
-popupAddCardForm.setEventListeners();
+let cardsSection;
 
 api
   .getInitialCards()
   .then((initialArr) => {
-    const cardsSection = new Section(
+    cardsSection = new Section(
       {
         items: initialArr,
         renderer: createCard,
@@ -81,6 +89,23 @@ api
   .catch((error) => {
     console.log(error);
   });
+
+const popupAddCardForm = new PopupWithForm(
+  ".popup_type_add-card",
+  (formData) => {
+    api
+      .addCard(formData)
+      .then((cardData) => {
+        const cardElement = createCard(cardData);
+        cardsSection.addItem(cardElement);
+        popupAddCardForm.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+);
+popupAddCardForm.setEventListeners();
 
 const openAddCardPopup = () => {
   popupAddCardForm.open();
@@ -100,3 +125,5 @@ const newCardValidation = new FormValidator(validationConfig, formAddCard);
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
+
+export { popupConfirmation }
