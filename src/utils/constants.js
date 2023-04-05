@@ -12,6 +12,7 @@ const popupAddCard = document.querySelector(".popup_type_add-card");
 const formEditProfile = document.querySelector(".popup__form_type_edit-profile");
 const profileTitleSelector = ".profile__title";
 const profileSubtitleSelector = ".profile__subtitle";
+const profileAvatarSelector = ".profile__avatar";
 const buttonAdd = document.querySelector(".profile__add-button");
 const formAddCard = document.querySelector(".popup__form_type_add-card");
 const templateSelector = "#element__template";
@@ -23,6 +24,7 @@ export {
   formEditProfile,
   profileTitleSelector,
   profileSubtitleSelector,
+  profileAvatarSelector,
   buttonAdd,
   formAddCard,
   templateSelector,

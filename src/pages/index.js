@@ -10,6 +10,7 @@ import {
   validationConfig,
   formEditProfile,
   formAddCard,
+  profileAvatarSelector,
 } from "../utils/constants.js";
 
 import Card from "../components/Card.js";
@@ -23,8 +24,17 @@ import { api } from "../components/Api.js";
 const userInfo = new UserInfo({
   nameSelector: profileTitleSelector,
   infoSelector: profileSubtitleSelector,
-  
+  avatarSelector: profileAvatarSelector,
 });
+
+api
+  .getUserInfo()
+  .then((formData) => {
+    userInfo.setUserInfo(formData);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const popupWithImage = new PopupWithImage(".popup_type_expand-image");
 popupWithImage.setEventListeners();
@@ -56,7 +66,8 @@ const popupAddCardForm = new PopupWithForm(
 );
 popupAddCardForm.setEventListeners();
 
-api.getInitialCards()
+api
+  .getInitialCards()
   .then((initialArr) => {
     const cardsSection = new Section(
       {
