@@ -12,6 +12,7 @@ import {
   formAddCard,
   formConfirmDelete,
   profileAvatarSelector,
+  avatarEditElement,
 } from "../utils/constants.js";
 
 import Card from "../components/Card.js";
@@ -41,7 +42,7 @@ api
 const popupConfirmation = new PopupConfirm(".popup_type_confirm", () => {
   popupConfirmation.deleteCard();
   popupConfirmation.close();
-})
+});
 popupConfirmation.setEventListeners();
 
 const popupWithImage = new PopupWithImage(".popup_type_expand-image");
@@ -65,9 +66,14 @@ const popupProfileForm = new PopupWithForm(
 popupProfileForm.setEventListeners();
 
 const createCard = (cardData) => {
-  const card = new Card(cardData, templateSelector, () => {
-    popupWithImage.open(cardData);
-  }, userInfo.userId);
+  const card = new Card(
+    cardData,
+    templateSelector,
+    () => {
+      popupWithImage.open(cardData);
+    },
+    userInfo.userId
+  );
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -126,4 +132,29 @@ const newCardValidation = new FormValidator(validationConfig, formAddCard);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
-export { popupConfirmation }
+const openAvatarEditPopup = () => {
+  popupProfileAvatar.open();
+  // avatarValidation.resetValidation();
+};
+avatarEditElement.addEventListener("click", openAvatarEditPopup);
+
+const popupProfileAvatar = new PopupWithForm(
+  ".popup_type_edit-avatar",
+  (formData) => {
+    api
+      .setUserAvatar(formData)
+      .then((formData) => {
+        userInfo.setUserAvatar(formData);
+        popupProfileAvatar.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+);
+popupProfileAvatar.setEventListeners();
+
+// const avatarValidation = new FormValidator(validationConfig, formConfirmDelete);
+// avatarValidation.enableValidation();
+
+export { popupConfirmation };

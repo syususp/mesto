@@ -119,6 +119,25 @@
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
+  setUserAvatar(formData) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-62/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: formData.link,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 }
 
 export const api = new Api({
