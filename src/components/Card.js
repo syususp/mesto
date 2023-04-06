@@ -1,10 +1,12 @@
 import { popupConfirmation } from "../pages/index.js";
+import { api } from "./Api.js";
 
 export default class Card {
-  constructor(cardData, templateSelector, handleCardClick) {
+  constructor(cardData, templateSelector, handleCardClick, currentUserId) {
     this._cardData = cardData;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._currentUserId = currentUserId;
   }
 
   _toggleLikeButton = () => {
@@ -16,28 +18,46 @@ export default class Card {
     this.element = null;
   };
 
-  _setValues() {
-    this._elementImage.src = this._cardData.link;
-    this._elementImage.alt = this._cardData.name;
-    this._elementTitle.textContent = this._cardData.name;
-    this._likeCounter.textContent = this._cardData.likes.length;
-  }
-
   _setEventListeners() {
     this._buttonLike.addEventListener("click", this._toggleLikeButton);
 
     this._trashButton.addEventListener("click", () => {
       popupConfirmation.open();
-      popupConfirmation._submitCallback = () => {
-        this._removeElement();
-        popupConfirmation.deleteCard();
-        popupConfirmation.close();
+      popupConfirmation.setSubmitCallback(() => {
+        popupConfirmation._confirmed = true;
+      });
+      popupConfirmation.deleteCard = () => {
+        api
+          .deleteCard(this._cardData._id)
+          .then(() => {
+            if (this.element) {
+              this.element.remove();
+              this.element = null;
+            }
+            popupConfirmation.close();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       };
     });
 
     this._elementImage.addEventListener("click", () => {
       this._handleCardClick(this._cardData);
     });
+  }
+
+  _setValues() {
+    this._elementImage.src = this._cardData.link;
+    this._elementImage.alt = this._cardData.name;
+    this._elementTitle.textContent = this._cardData.name;
+    this._likeCounter.textContent = this._cardData.likes.length;
+
+    if (this._cardData.owner._id === this._currentUserId) {
+      this._trashButton.style.display = "block";
+    } else {
+      this._trashButton.style.display = "none";
+    }
   }
 
   generateCard() {

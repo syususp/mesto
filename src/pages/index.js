@@ -67,7 +67,7 @@ popupProfileForm.setEventListeners();
 const createCard = (cardData) => {
   const card = new Card(cardData, templateSelector, () => {
     popupWithImage.open(cardData);
-  });
+  }, userInfo.userId);
   const cardElement = card.generateCard();
   return cardElement;
 };

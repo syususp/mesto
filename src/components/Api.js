@@ -14,7 +14,6 @@
         return res.json();
       }
 
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
@@ -29,7 +28,6 @@
         return res.json();
       }
 
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
@@ -50,7 +48,6 @@
         return res.json();
       }
 
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
@@ -71,7 +68,21 @@
         return res.json();
       }
 
-      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-62/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+      }
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
