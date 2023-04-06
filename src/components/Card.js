@@ -13,14 +13,48 @@ export default class Card {
     this._buttonLike.classList.toggle("element__like-button_type_active");
   };
 
+  _handleLike() {
+    const isLiked = this._buttonLike.classList.contains(
+      "element__like-button_type_active"
+    );
+
+    if (isLiked) {
+      api
+        .unlikeCard(this._cardData._id)
+        .then((updatedCard) => {
+          this._cardData.likes = updatedCard.likes;
+          this._updateLikeCounter();
+          this._toggleLikeButton();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      api
+        .likeCard(this._cardData._id)
+        .then((updatedCard) => {
+          this._cardData.likes = updatedCard.likes;
+          this._updateLikeCounter();
+          this._toggleLikeButton();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
+  _updateLikeCounter() {
+    this._likeCounter.textContent = this._cardData.likes.length;
+  }
+
   _removeElement = () => {
     this.element.remove();
     this.element = null;
   };
 
   _setEventListeners() {
-    this._buttonLike.addEventListener("click", this._toggleLikeButton);
-
+    this._buttonLike.addEventListener("click", () => this._handleLike());
+    
     this._trashButton.addEventListener("click", () => {
       popupConfirmation.open();
       popupConfirmation.setSubmitCallback(() => {
