@@ -54,7 +54,7 @@ export default class Card {
 
   _setEventListeners() {
     this._buttonLike.addEventListener("click", () => this._handleLike());
-    
+
     this._trashButton.addEventListener("click", () => {
       popupConfirmation.open();
       popupConfirmation.setSubmitCallback(() => {

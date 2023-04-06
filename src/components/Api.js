@@ -5,7 +5,7 @@
   }
 
   getInitialCards() {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-62/cards", {
+    return fetch(`${this.baseUrl}/cards`, {
       headers: {
         authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
       },
@@ -91,12 +91,15 @@
   }
 
   likeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-62/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: {
-        authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
-      },
-    }).then((res) => {
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-62/cards/${cardId}/likes`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+        },
+      }
+    ).then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -106,12 +109,15 @@
   }
 
   unlikeCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-62/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: {
-        authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
-      },
-    }).then((res) => {
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-62/cards/${cardId}/likes`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+        },
+      }
+    ).then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -121,16 +127,19 @@
   }
 
   setUserAvatar(formData) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-62/users/me/avatar`, {
-      method: "PATCH",
-      headers: {
-        authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        avatar: formData.link,
-      }),
-    }).then((res) => {
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-62/users/me/avatar`,
+      {
+        method: "PATCH",
+        headers: {
+          authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          avatar: formData.link,
+        }),
+      }
+    ).then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -140,10 +149,7 @@
   }
 }
 
-export const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-62",
-  headers: {
-    authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
-    "Content-Type": "application/json",
-  },
+export const api = new Api(`https://mesto.nomoreparties.co/v1/cohort-62`, {
+  authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+  "Content-Type": "application/json",
 });
