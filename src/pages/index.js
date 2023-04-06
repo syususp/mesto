@@ -124,6 +124,7 @@ buttonEdit.addEventListener("click", () => {
   const valuesFromProfile = userInfo.getUserInfo();
   popupProfileForm.setInputValues(valuesFromProfile);
   newCardValidation.resetValidation();
+  popupProfileForm.renderLoading(false);
 });
 
 const profileValidation = new FormValidator(validationConfig, formEditProfile);
