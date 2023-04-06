@@ -10,7 +10,7 @@ import {
   validationConfig,
   formEditProfile,
   formAddCard,
-  formConfirmDelete,
+  formEditAvatar,
   profileAvatarSelector,
   avatarEditElement,
 } from "../utils/constants.js";
@@ -134,7 +134,7 @@ newCardValidation.enableValidation();
 
 const openAvatarEditPopup = () => {
   popupProfileAvatar.open();
-  // avatarValidation.resetValidation();
+  avatarValidation.resetValidation();
 };
 avatarEditElement.addEventListener("click", openAvatarEditPopup);
 
@@ -154,7 +154,7 @@ const popupProfileAvatar = new PopupWithForm(
 );
 popupProfileAvatar.setEventListeners();
 
-// const avatarValidation = new FormValidator(validationConfig, formConfirmDelete);
-// avatarValidation.enableValidation();
+const avatarValidation = new FormValidator(validationConfig, formEditAvatar);
+avatarValidation.enableValidation();
 
 export { popupConfirmation };

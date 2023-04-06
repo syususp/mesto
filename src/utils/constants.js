@@ -15,7 +15,7 @@ const profileSubtitleSelector = ".profile__subtitle";
 const profileAvatarSelector = ".profile__avatar";
 const buttonAdd = document.querySelector(".profile__add-button");
 const formAddCard = document.querySelector(".popup__form_type_add-card");
-const formConfirmDelete = document.querySelector(".popup_type_confirm");
+const formEditAvatar = document.querySelector(".popup__form_type_edit-avatar");
 const templateSelector = "#element__template";
 const avatarEditElement = document.querySelector(".profile__avatar-edit")
 
@@ -29,7 +29,7 @@ export {
   profileAvatarSelector,
   buttonAdd,
   formAddCard,
-  formConfirmDelete,
+  formEditAvatar,
   templateSelector,
   avatarEditElement,
 };
