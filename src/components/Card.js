@@ -1,5 +1,12 @@
 export default class Card {
-  constructor(cardData, templateSelector, handleCardClick, currentUserId, handleLike, handleDelete) {
+  constructor(
+    cardData,
+    templateSelector,
+    handleCardClick,
+    currentUserId,
+    handleLike,
+    handleDelete
+  ) {
     this._cardData = cardData;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
@@ -15,11 +22,6 @@ export default class Card {
   updateLikeCounter() {
     this._likeCounter.textContent = this._cardData.likes.length;
   }
-
-  // _removeElement = () => {
-  //   this.element.remove();
-  //   this.element = null;
-  // };
 
   _setEventListeners() {
     this._buttonLike.addEventListener("click", () => this._handleLike(this));

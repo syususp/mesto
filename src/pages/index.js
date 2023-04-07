@@ -66,7 +66,9 @@ const popupProfileForm = new PopupWithForm(
 popupProfileForm.setEventListeners();
 
 const handleLike = (cardInstance) => {
-  const isLiked = cardInstance._buttonLike.classList.contains("element__like-button_type_active");
+  const isLiked = cardInstance._buttonLike.classList.contains(
+    "element__like-button_type_active"
+  );
 
   if (isLiked) {
     api
