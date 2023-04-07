@@ -30,15 +30,6 @@ const userInfo = new UserInfo({
   avatarSelector: profileAvatarSelector,
 });
 
-api
-  .getUserInfo()
-  .then((formData) => {
-    userInfo.setUserInfo(formData);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
 const popupConfirmation = new PopupConfirm(".popup_type_confirm", () => {
   popupConfirmation.deleteCard();
   popupConfirmation.close();
@@ -59,8 +50,10 @@ const popupProfileForm = new PopupWithForm(
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        popupProfileForm.renderLoading(false);
       });
-    // popupProfileForm.close();
   }
 );
 popupProfileForm.setEventListeners();
@@ -98,9 +91,6 @@ const handleLike = (cardInstance) => {
 const handleDelete = (cardInstance) => {
   popupConfirmation.open();
   popupConfirmation.setSubmitCallback(() => {
-    popupConfirmation._confirmed = true;
-  });
-  popupConfirmation.deleteCard = () => {
     api
       .deleteCard(cardInstance._cardData._id)
       .then(() => {
@@ -113,7 +103,7 @@ const handleDelete = (cardInstance) => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  });
 };
 
 const createCard = (cardData) => {
@@ -133,17 +123,17 @@ const createCard = (cardData) => {
 
 let cardsSection;
 
-api
-  .getInitialCards()
-  .then((initialArr) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+
     cardsSection = new Section(
       {
-        items: initialArr,
         renderer: createCard,
       },
       ".elements"
     );
-    cardsSection.renderItems();
+    cardsSection.renderItems(initialCards);
   })
   .catch((error) => {
     console.log(error);
@@ -177,7 +167,6 @@ buttonEdit.addEventListener("click", () => {
   const valuesFromProfile = userInfo.getUserInfo();
   popupProfileForm.setInputValues(valuesFromProfile);
   newCardValidation.resetValidation();
-  popupProfileForm.renderLoading(false);
 });
 
 const profileValidation = new FormValidator(validationConfig, formEditProfile);
