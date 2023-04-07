@@ -65,6 +65,55 @@ const popupProfileForm = new PopupWithForm(
 );
 popupProfileForm.setEventListeners();
 
+const handleLike = (cardInstance) => {
+  const isLiked = cardInstance._buttonLike.classList.contains("element__like-button_type_active");
+
+  if (isLiked) {
+    api
+      .unlikeCard(cardInstance._cardData._id)
+      .then((updatedCard) => {
+        cardInstance._cardData.likes = updatedCard.likes;
+        cardInstance.updateLikeCounter();
+        cardInstance.toggleLikeButton();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    api
+      .likeCard(cardInstance._cardData._id)
+      .then((updatedCard) => {
+        cardInstance._cardData.likes = updatedCard.likes;
+        cardInstance.updateLikeCounter();
+        cardInstance.toggleLikeButton();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+};
+
+const handleDelete = (cardInstance) => {
+  popupConfirmation.open();
+  popupConfirmation.setSubmitCallback(() => {
+    popupConfirmation._confirmed = true;
+  });
+  popupConfirmation.deleteCard = () => {
+    api
+      .deleteCard(cardInstance._cardData._id)
+      .then(() => {
+        if (cardInstance.element) {
+          cardInstance.element.remove();
+          cardInstance.element = null;
+        }
+        popupConfirmation.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
 const createCard = (cardData) => {
   const card = new Card(
     cardData,
@@ -72,7 +121,9 @@ const createCard = (cardData) => {
     () => {
       popupWithImage.open(cardData);
     },
-    userInfo.userId
+    userInfo.userId,
+    handleLike,
+    handleDelete
   );
   const cardElement = card.generateCard();
   return cardElement;
