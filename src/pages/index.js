@@ -63,7 +63,7 @@ const handleLike = (cardInstance) => {
     api
       .unlikeCard(cardInstance.getCardId())
       .then((updatedCard) => {
-        cardInstance.setLikes() = updatedCard.likes;
+        cardInstance.setLikes(updatedCard.likes);
         cardInstance.updateLikeCounter();
         cardInstance.toggleLikeButton();
       })
@@ -74,7 +74,7 @@ const handleLike = (cardInstance) => {
     api
       .likeCard(cardInstance.getCardId())
       .then((updatedCard) => {
-        cardInstance.setLikes() = updatedCard.likes;
+        cardInstance.setLikes(updatedCard.likes);
         cardInstance.updateLikeCounter();
         cardInstance.toggleLikeButton();
       })
