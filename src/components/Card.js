@@ -15,6 +15,18 @@ export default class Card {
     this._handleDelete = handleDelete;
   }
 
+  getCardId() {
+    return this._cardData._id;
+  }
+
+  setLikes(likes) {
+    this._cardData.likes = likes;
+  }
+
+  isLiked() {
+    return this._buttonLike.classList.contains("element__like-button_type_active");
+  }
+  
   toggleLikeButton = () => {
     this._buttonLike.classList.toggle("element__like-button_type_active");
   };
@@ -44,6 +56,11 @@ export default class Card {
     } else {
       this._trashButton.classList.add("element__trash-button_hidden");
     }
+  }
+
+  removeElement() {
+    this.element.remove();
+    this.element = null;
   }
 
   generateCard() {

@@ -1,7 +1,6 @@
 import "./index.css";
 
 import {
-  // initialArr,
   buttonEdit,
   profileTitleSelector,
   profileSubtitleSelector,
@@ -32,7 +31,6 @@ const userInfo = new UserInfo({
 
 const popupConfirmation = new PopupConfirm(".popup_type_confirm", () => {
   popupConfirmation.deleteCard();
-  popupConfirmation.close();
 });
 popupConfirmation.setEventListeners();
 
@@ -59,15 +57,13 @@ const popupProfileForm = new PopupWithForm(
 popupProfileForm.setEventListeners();
 
 const handleLike = (cardInstance) => {
-  const isLiked = cardInstance._buttonLike.classList.contains(
-    "element__like-button_type_active"
-  );
+  const isLiked = cardInstance.isLiked();
 
   if (isLiked) {
     api
-      .unlikeCard(cardInstance._cardData._id)
+      .unlikeCard(cardInstance.getCardId())
       .then((updatedCard) => {
-        cardInstance._cardData.likes = updatedCard.likes;
+        cardInstance.setLikes() = updatedCard.likes;
         cardInstance.updateLikeCounter();
         cardInstance.toggleLikeButton();
       })
@@ -76,9 +72,9 @@ const handleLike = (cardInstance) => {
       });
   } else {
     api
-      .likeCard(cardInstance._cardData._id)
+      .likeCard(cardInstance.getCardId())
       .then((updatedCard) => {
-        cardInstance._cardData.likes = updatedCard.likes;
+        cardInstance.setLikes() = updatedCard.likes;
         cardInstance.updateLikeCounter();
         cardInstance.toggleLikeButton();
       })
@@ -92,11 +88,10 @@ const handleDelete = (cardInstance) => {
   popupConfirmation.open();
   popupConfirmation.setSubmitCallback(() => {
     api
-      .deleteCard(cardInstance._cardData._id)
+      .deleteCard(cardInstance.getCardId())
       .then(() => {
         if (cardInstance.element) {
-          cardInstance.element.remove();
-          cardInstance.element = null;
+          cardInstance.removeElement();
         }
         popupConfirmation.close();
       })
@@ -113,7 +108,7 @@ const createCard = (cardData) => {
     () => {
       popupWithImage.open(cardData);
     },
-    userInfo.userId,
+    userInfo.getUserId(),
     handleLike,
     handleDelete
   );
@@ -199,5 +194,3 @@ popupProfileAvatar.setEventListeners();
 
 const avatarValidation = new FormValidator(validationConfig, formEditAvatar);
 avatarValidation.enableValidation();
-
-export { popupConfirmation };
