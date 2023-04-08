@@ -17,7 +17,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const formAddCard = document.querySelector(".popup__form_type_add-card");
 const formEditAvatar = document.querySelector(".popup__form_type_edit-avatar");
 const templateSelector = "#element__template";
-const avatarEditElement = document.querySelector(".profile__avatar-edit")
+const avatarEditElement = document.querySelector(".profile__avatar")
 
 export {
   validationConfig,
